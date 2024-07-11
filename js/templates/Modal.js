@@ -1,46 +1,38 @@
 class Form {
-    constructor() {
-        this.$wrapper = document.createElement('div')
-        this.$modalWrapper = document.querySelector('.modal')
-    }
+  constructor() {
+    this.$wrapper = document.createElement("div");
+    this.$modalWrapper = document.querySelector(".modal");
+  }
 
-    onSubmitForm() {
-        this.$wrapper
-            .querySelector('form')
-            .addEventListener('submit', e => {
-                e.preventDefault()
+  onSubmitForm() {
+    this.$wrapper.querySelector("form").addEventListener("submit", (e) => {
+      e.preventDefault();
 
-                const firstNameInputValue = this
-                    .$wrapper
-                    .querySelector('#firstname')
-                    .value
-                
-                const lastNameInputValue = this
-                    .$wrapper
-                    .querySelector('#lastname')
-                    .value
+      const firstNameInputValue =
+        this.$wrapper.querySelector("#firstname").value;
 
-                /* Note pour l'exercice : vous aurez besoin de décommenter ses lignes */
-                
-                // const user = new User({
-                //     firstName: firstNameInputValue,
-                //     lastName: lastNameInputValue
-                // })
+      const lastNameInputValue = this.$wrapper.querySelector("#lastname").value;
 
-                // if (user.user) {
-                this.$modalWrapper.classList.remove('modal-on')
-                this.$modalWrapper.innerHTML = ""
-                // }
-            })
-    }
+      /* Note pour l'exercice : vous aurez besoin de décommenter ses lignes */
+      const user = new User({
+        firstName: firstNameInputValue,
+        lastName: lastNameInputValue,
+      });
 
-    shouldDisplayForm() {
-        const user = new User()
-        return !user.user
-    }
+      // if (user.user) {
+      this.$modalWrapper.classList.remove("modal-on");
+      this.$modalWrapper.innerHTML = "";
+      // }
+    });
+  }
 
-    createForm() {
-        const form = `
+  shouldDisplayForm() {
+    const user = new User();
+    return !user.user;
+  }
+
+  createForm() {
+    const form = `
             <form action="#" method="POST">
                 <div class="form-group">
                     <label class="form-label" for="firstname">Votre prénom : </label>
@@ -52,17 +44,17 @@ class Form {
                 </div>
                 <button class="submit-btn" type="submit">Valider</button>
             </form>
-        `
-        this.$wrapper.innerHTML = form
+        `;
+    this.$wrapper.innerHTML = form;
 
-        this.$modalWrapper.classList.add('modal-on')
-        this.$modalWrapper.appendChild(this.$wrapper)   
-    }
+    this.$modalWrapper.classList.add("modal-on");
+    this.$modalWrapper.appendChild(this.$wrapper);
+  }
 
-    render() {
-        if (this.shouldDisplayForm()) {
-            this.createForm()
-            this.onSubmitForm()
-        }
+  render() {
+    if (this.shouldDisplayForm()) {
+      this.createForm();
+      this.onSubmitForm();
     }
+  }
 }
