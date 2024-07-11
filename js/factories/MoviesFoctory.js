@@ -16,8 +16,11 @@ class MoviesFactory {
       return new OldMovie(data);
     } else if (type === "newApi") {
       return new Movie(data);
+    } else if (type === "externalApi") {
+      return new ExternalMovie(data);
     } else {
       // Si le type de film n'est pas reconnu, je lève une erreur
+      console.error("Type de film inconnu", data, type);
       throw new Error("Type de film inconnu");
     }
   }

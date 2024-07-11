@@ -10,25 +10,24 @@ class App {
    */
   constructor() {
     this.$moviesWrapper = document.querySelector(".movies-wrapper");
-    this.oldMoviesApi = new MovieApi("/data/old-movie-data.json");
-    this.newMoviesApi = new MovieApi("/data/new-movie-data.json");
+    this.MoviesApi = new MovieApi("/data/new-movie-data.json");
+    this.externalMovie = new MovieApi("/data/external-movie-data.json");
   }
 
   async main() {
     // Ici je récupère mes films de mes deux API
-    const oldMoviesData = await this.oldMoviesApi.getMovies();
-    const newMoviesApi = await this.newMoviesApi.getMovies();
+    const MoviesApi = await this.MoviesApi.getMovies();
+    const externalMovieApi = await this.externalMovie.getMovies();
 
     // Instanciation de la classe Factory MoviesFactory
-    const oldMovies = oldMoviesData.map(
-      (movie) => new MoviesFactory(movie, "oldApi")
-    );
-    const newMovies = newMoviesApi.map(
-      (movie) => new MoviesFactory(movie, "newApi")
+    const Movies = MoviesApi.map((movie) => new MoviesFactory(movie, "newApi"));
+
+    const externalMovies = externalMovieApi.map(
+      (movie) => new MoviesFactory(movie, "externalApi")
     );
 
     // Concaténation des deux tableaux de films
-    const FullMovies = [...oldMovies, ...newMovies];
+    const FullMovies = [...Movies, ...externalMovies];
 
     // Affichage des films
     FullMovies.forEach((movie) => {
